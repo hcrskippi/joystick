@@ -1,0 +1,17 @@
+<package>
+  <description brief="joystick">
+
+     joystick
+
+  </description>
+  <author>Farhan</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/joystick</url>
+  <depend package="roscpp"/>
+  <export>
+	<cpp cflags="-g `sdl-config --cflags --libs`"/>
+  </export>
+</package>
+
+
