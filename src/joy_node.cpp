@@ -1,10 +1,11 @@
 #include "ros/ros.h"
-#include "joystick/js_message.h"
+#include "joystick/js_axes.h"
 #include "Joystick.h"
 #include "jsexception/exceptions.h"
 #include <SDL.h>
 
 #define JOYSTICK_NODE "joy_node"
+#define JOYSTICK_TOPIC "joystick_axes"
 #define RATE 10
 
 int main(int argc, char * argv[]){
@@ -31,12 +32,12 @@ int main(int argc, char * argv[]){
 	 *	int16 z
 	 * The message will be published on the joystick_commands topic
 	 */
-	ros::Publisher publisher = n.advertise<joystick::js_message>("joystick_commands",1000);
+	ros::Publisher publisher = n.advertise<joystick::js_axes>(JOYSTICK_TOPIC,1000);
 	
 	ros::Rate loop(RATE);
 
 	while(ros::ok()){
-		joystick::js_message msg;
+		joystick::js_axes msg;
 		msg.x = joystick.getX();
 		msg.y = joystick.getY();
 		msg.z = joystick.getZ();
