@@ -11,7 +11,7 @@ public:
 	HapticJoystick(void);
 	HapticJoystick(int joystick_id) throw(jsexception::NoJoystickFoundException);
 	~HapticJoystick(void);
-	int init_haptic(int joystick_id) throw(jsexception::NoJoystickFoundException);
+	int init(int joystick_id) throw(jsexception::NoJoystickFoundException);
 	int applyEffect(int x,int y, int strength); 
 	int applyEffect(int angle, int strength);
 protected:

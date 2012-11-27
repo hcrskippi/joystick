@@ -8,7 +8,7 @@
 #include "HapticJoystick.h"
 
 #define JOYSTICK_NODE "joy_node"
-#define JOYSTICK_TOPIC "joystick_axes"
+#define JOYSTICK_TOPIC "joystick"
 #define HAPTIC_CARTESIAN "haptic_cartesian"
 #define HAPTIC_POLAR "haptic_polar"
 #define RATE 10
@@ -22,6 +22,7 @@ void cartesian(const joystick::haptic_cartesian& msg){
 }
 
 void polar(const joystick::haptic_polar& msg){
+	ROS_INFO("msg.angle: %d", msg.angle);
 	js->applyEffect(msg.angle, msg.strength);
 } 
 
