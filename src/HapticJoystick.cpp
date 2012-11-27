@@ -10,6 +10,7 @@ HapticJoystick::HapticJoystick(int joystick_id) throw(jsexception::NoJoystickFou
 }
 
 HapticJoystick::~HapticJoystick(void){
+	delete effect;
 	SDL_HapticClose(this->haptic);
 }
 
@@ -19,10 +20,17 @@ int HapticJoystick::init_haptic(int joystick_id) throw(jsexception::NoJoystickFo
 	if (haptic == NULL){
 		throw jsexception::NoHapticJoystickFoundException(joystick_id);
 	}
-	/*Initialise other stuff*/
+
+	(*this).effect = new Effect(this->haptic);
 }
 
-
+int HapticJoystick::applyEffect(int x,int y, int strength){
+	effect->apply(x,y,strength);
+} 
+  
+int HapticJoystick::applyEffect(int angle, int strength){
+	effect->apply(angle,strength);
+}
 
 
 

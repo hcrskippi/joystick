@@ -25,6 +25,15 @@ int main(int argc, char * argv[]){
 			std::cout << ", Z: " << joystick.getZ() << std::endl;
 			break;
 		}
+
+	for(int i = 0; i < 360; ++i){
+    		int x = 1000.0*cos((float)i*PI/180.0);
+    		int y = 1000.0*sin((float)i*PI/180.0);
+       		std::cout << "Effect applied x = " << x << ", y = " << y << std::endl;
+    		joystick.applyEffect(x,y,32767);
+    		SDL_Delay(30);
+   	}
+
 	}catch (jsexception::NoJoystickFoundException &e){
 		std::cout << e.what() << std::endl;
 	}

@@ -1,6 +1,6 @@
-program_NAME := joystick
+program_NAME := joystick_test
 program_C_SRCS := $(wildcard *.c)
-program_CXX_SRCS := main.cpp Joystick.cpp HapticJoystick.cpp
+program_CXX_SRCS := main.cpp Joystick.cpp HapticJoystick.cpp Effect.cpp
 program_C_OBJS := ${program_C_SRCS:.c=.o}
 program_CXX_OBJS := ${program_CXX_SRCS:.cpp=.o}
 program_OBJS := $(program_C_OBJS) $(program_CXX_OBJS)
@@ -15,20 +15,25 @@ LDFLAGS += $(foreach library,$(program_LIBRARIES),-l $(library))
 
 .PHONY: all clean distclean
 
-all: $(program_OBJS)
-
+#all: $(program_OBJS)
+all: $(program_NAME)
 $(program_NAME) : $(program_OBJS)
 	$(LINK.cc) $(program_OBJS) -o $(program_NAME) $(LDFLAGS)
 
 main.o : main.cpp
 	$(LINK.cc) -c -o main.o main.cpp $(LDFLAGS)
 
-
 Joystick.o : Joystick.cpp
 	$(LINK.cc) -c -o Joystick.o Joystick.cpp  $(LDFLAGS)
 
+HapticJoystick.o: HapticJoystick.cpp
+	$(LINK.cc) -c -o HapticJoystick.o HapticJoystick.cpp  $(LDFLAGS)
+
+Effect.o: Effect.cpp
+	$(LINK.cc) -c -o Effect.o Effect.cpp  $(LDFLAGS)
+
 clean:
-#	@- $(RM) $(program_NAME)
+	@- $(RM) $(program_NAME)
 	@- $(RM) $(program_OBJS)
 
 distclean: clean

@@ -31,6 +31,6 @@ rosbuild_genmsg()
 
 include_directories(/usr/local/include/SDL2 $(ROS_WORKSPACE)/joystick/src)
 
-rosbuild_add_executable(joynode src/joy_node.cpp src/Joystick.cpp)
+rosbuild_add_executable(joynode src/joy_node.cpp src/Joystick.cpp src/HapticJoystick.cpp src/Effect.cpp)
 target_link_libraries(joynode SDL2)
 
