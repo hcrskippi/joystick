@@ -6,17 +6,20 @@
 #include "jsexception/exceptions.h"
 #include <SDL.h>
 #include "HapticJoystick.h"
+#include "joystick/GetXYZ.h"
 
 #define JOYSTICK_NODE "joy_node"
 #define JOYSTICK_TOPIC "joystick"
 #define HAPTIC_CARTESIAN "haptic_cartesian"
 #define HAPTIC_POLAR "haptic_polar"
+#define SERVER_NAME "GetXYZ"
 #define RATE 10
 
 
 
 HapticJoystick *js = new HapticJoystick();
 
+/*Subscribers*/
 void cartesian(const joystick::haptic_cartesian& msg){
 	js->applyEffect(msg.x, msg.y, msg.strength);	
 }
@@ -25,6 +28,14 @@ void polar(const joystick::haptic_polar& msg){
 	ROS_INFO("msg.angle: %d", msg.angle);
 	js->applyEffect(msg.angle, msg.strength);
 } 
+
+/*Server*/
+bool respond(joystick::GetXYZ::Request &req, joystick::GetXYZ::Response &response){
+	response.x = js->getX();
+	response.y = js->getY();
+	response.z = js->getZ();
+	return true;	
+}
 
 int main(int argc, char * argv[]){
 
@@ -56,6 +67,8 @@ int main(int argc, char * argv[]){
 	ros::Subscriber cartesianSubscriber = n.subscribe(HAPTIC_CARTESIAN, 1000, cartesian);
 
 	ros::Subscriber polarSubscriber = n.subscribe(HAPTIC_POLAR, 1000, polar);
+
+	ros::ServiceServer axisServer = n.advertiseService(SERVER_NAME, respond);
 	
 	ros::Rate loop(RATE);
 
