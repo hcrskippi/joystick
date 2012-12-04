@@ -22,6 +22,7 @@ int HapticJoystick::init(int joystick_id) throw(jsexception::NoJoystickFoundExce
 	}
 
 	(*this).effect = new Effect(this->haptic);
+	SDL_HapticSetGain(this->haptic, 150);
 }
 
 int HapticJoystick::applyEffect(int x,int y, int strength){
